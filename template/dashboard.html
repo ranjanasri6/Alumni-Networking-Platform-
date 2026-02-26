@@ -1,0 +1,42 @@
+<h2>Welcome {{name}}</h2>
+<a href="/logout">Logout</a>
+<hr>
+
+{% if role == "student" %}
+
+<h3>Available Alumni</h3>
+{% for a in alumni %}
+<div class="card">
+<b>{{a[1]}}</b> - {{a[5]}} ({{a[4]}})
+<form method="POST" action="/request/{{a[0]}}">
+<textarea name="message" placeholder="Send message"></textarea>
+<button type="submit">Send Request</button>
+</form>
+</div>
+{% endfor %}
+
+<h3>Your Requests</h3>
+{% for r in my_requests %}
+<div class="card">
+To: {{r[1]}} <br>
+Message: {{r[2]}} <br>
+Status: {{r[3]}} <br>
+Date: {{r[4]}}
+</div>
+{% endfor %}
+
+{% else %}
+
+<h3>Mentorship Requests</h3>
+{% for r in requests %}
+<div class="card">
+From: {{r[1]}} <br>
+Message: {{r[2]}} <br>
+Status: {{r[3]}} <br>
+Date: {{r[4]}} <br>
+<a href="/update/{{r[0]}}/Accepted">Accept</a> |
+<a href="/update/{{r[0]}}/Rejected">Reject</a>
+</div>
+{% endfor %}
+
+{% endif %}
